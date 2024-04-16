@@ -1,0 +1,51 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url("https://media.istockphoto.com/id/1299730469/ko/%EC%82%AC%EC%A7%84/%EC%A7%80%EB%AC%B8-%EC%83%9D%EC%B2%B4-%EC%9D%B8%EC%8B%9D-%EC%9D%B8%EC%A6%9D-%EB%B2%84%ED%8A%BC-%EB%94%94%EC%A7%80%ED%84%B8-%EB%B3%B4%EC%95%88-%EA%B0%9C%EB%85%90.jpg?s=612x612&w=0&k=20&c=9TiwuAb0aE7p1L3AJ2fnok7CA6TQ0ggr6mOzg-ICw2Y=");
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto; /* 가운데 정렬 */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007bff; /* 파랑색 */
+            margin-bottom: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Title Editor</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">저장</button>
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}

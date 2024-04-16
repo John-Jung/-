@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div style="margin-top: 5rem !important;">
+        <div class="col-12">
+            <div class="row justify-content-center">
+                <div class="card">
+                    <div class="card-header" style="padding-bottom: 8px;">
+                        <strong style="font-size: 18px;"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;내 정보</strong>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+                            <tr>
+                                <td class="profile_title">아이디</td>
+                                <td class="profile_content">{{ user.user_id }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">이메일</td>
+                                <td class="profile_content">{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">이름</td>
+                                <td class="profile_content">{{ user.name }}</td>
+                            </tr>
+                            <tr>
+                                <td class="profile_title">닉네임</td>
+                                <td class="profile_content">{{ user.nickname }}</td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div id="button-container" style="text-align: center;"></div>
+
+                        <script>
+                            // 버튼 생성 함수
+                            function createButton(iconClass, text, url) {
+                                var button = document.createElement("button");
+                                button.classList.add("btn");
+                                button.style.color = "#d14040f2";
+                                button.style.fontSize = "15px";
+                    
+                                var icon = document.createElement("i");
+                                icon.classList.add("fas", iconClass);
+                                button.appendChild(icon);
+                                button.innerHTML += "&nbsp;" + text;
+                    
+                                button.addEventListener("click", function() {
+                                    window.location.href = url;
+                                });
+                    
+                                return button;
+                            }
+                    
+                            // 버튼 컨테이너
+                            var buttonContainer = document.getElementById("button-container");
+                    
+                            // 내 정보 수정 버튼 생성
+                            var profileUpdateButton = createButton("fa-user-edit", "내 정보 수정", "{% url 'user_inform:profile_update' %}");
+                            buttonContainer.appendChild(profileUpdateButton);
+                    
+                            // 비밀번호 변경 버튼 생성
+                            var passwordEditButton = createButton("fa-user-lock", "비밀번호 변경", "{% url 'user_inform:password_edit' %}");
+                            buttonContainer.appendChild(passwordEditButton);
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

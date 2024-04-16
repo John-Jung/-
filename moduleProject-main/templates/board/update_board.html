@@ -1,0 +1,66 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      background-image: url("https://media.istockphoto.com/id/1412282189/photo/lock-network-technology-concept.jpg?s=612x612&w=0&k=20&c=hripuxLs9pS_7Ln6YWQR-Ow2_-BU5RdQ4vOY8s1q1iQ=");
+      background-size: cover;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto; /* 가운데 정렬 */
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #007bff; /* 파랑색 */
+      margin-bottom: 20px;
+    }
+    form {
+      text-align: left; /* 입력 필드 왼쪽 정렬 */
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box; /* 입력 필드 높이 조절을 위해 */
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>수정페이지</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ boardForm.as_p }}
+      <button type="submit">수정</button>
+    </form>
+  </div>
+</body>
+</html>
+{% endblock %}
