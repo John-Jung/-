@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -94,6 +94,7 @@ DATABASES = {
     #         'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
     #     }
     # }
+    #### RDS 연결
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'rookies08grdb',
@@ -102,6 +103,15 @@ DATABASES = {
         'HOST': 'rookies08grdb.ch8y8cm0cecj.us-west-1.rds.amazonaws.com',
         'PORT': '3306',
     }
+    ### 로컬 연걸
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'test_db',
+    #     'USER': 'root',
+    #     'PASSWORD': 'asdf1234',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # }
    # 'default': {
      #   'ENGINE': 'django.db.backends.sqlite3',
      #   'NAME': BASE_DIR / 'db.sqlite3',
@@ -149,6 +159,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
 	BASE_DIR / 'static', 
 ]
+
+EDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/index'
