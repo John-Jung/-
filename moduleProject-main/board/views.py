@@ -2,22 +2,27 @@ from django.shortcuts import render, redirect
 from .forms import NoticeBoardPostForm, CommentForm
 from .models import *
 from django.http import HttpResponse
-
+from accounts.models import Users
     
 def board(request):
     if request.method == 'POST':
 
         #print(1)
         #print(request.POST)
+
         title = request.POST['title']
         content = request.POST['content']
-        
+        user = request.session['user_id']
+        user_id = Users.objects.get(user_id = user)
+        print(user)
+        print(user_id)
         board = NoticeBoardPost(
             title=title,
             content=content,
         )
         #print(title, content)
         #print(board)
+        board.writer=user_id
         board.save()
         
         
@@ -25,7 +30,7 @@ def board(request):
     else:
         form = NoticeBoardPostForm()
     return render(request, 'board/create_board.html', {'form': form})
-   
+
 
 
 def read(request, board_id):
@@ -51,9 +56,12 @@ def comment_create(request, pk):
     
     board_detail = NoticeBoardPost.objects.get(pk = pk)  
     comment_form = CommentForm(request.POST)
+    user = request.session['user_id']
+    user_id = Users.objects.get(user_id = user)
     if comment_form.is_valid():
         comment = comment_form.save(commit=False)
         comment.commentId  = board_detail
+        comment.writer=user_id
         comment.save()
     return redirect(f'/board/board_detail/{pk}')
 

@@ -70,10 +70,12 @@
       {% for comment in comments %}
       <li>
         {{ comment.text }}
-        <form action="/board/comments/{{ board_detail.id }}/delete/{{ comment.pk }}/" method="POST">
-          {% csrf_token %}
-          <button type="submit">댓글 삭제</button>
+        {% if user.id == comment.writer_id or user.id == board_detail.writer_id%}
+          <form action="/board/comments/{{ board_detail.id }}/delete/{{ comment.pk }}/" method="POST">
+            {% csrf_token %}
+            <button type="submit">댓글 삭제</button>
         </form>
+        {% endif %}
       </li>
       {% endfor %}
     </ul>
@@ -85,11 +87,14 @@
       <button type="submit">댓글 생성</button>
     </form>
 
-    <a href="/board/board_list/">홈화면으로 돌아가기</a><br>
+    <a href="/board/board_list/">홈화면으로 돌아가기</a><br>  
+    {% if user.id == board_detail.writer_id %}
     <a href="/board/board_edit/{{ board_detail.id }}">수정하기</a><br>
-    <form action="/board/delete/{{ board_detail.id }}" method="GET">
+    <form action="/board/delete/{{ board_detail.id }}" method="POST">
+      {% csrf_token %}
       <button type="submit">삭제</button>
     </form>
+  {% endif %}
   </div>
 </body>
 </html>

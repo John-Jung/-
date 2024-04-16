@@ -7,6 +7,7 @@ from .forms import CsRegisterForm, LoginForm
 from django.views.generic import CreateView, FormView
 from django.urls import reverse_lazy
 
+
 #회원가입
 class CsRegisterView(CreateView):
     model = Users
@@ -36,9 +37,10 @@ class LoginView(FormView):
         user_id = form.cleaned_data.get("user_id")
         password = form.cleaned_data.get("password")
         user = authenticate(self.request, username=user_id, password=password)
-        
+        print(user)
         if user is not None:
             self.request.session['user_id'] = user_id
+            print(self.request.session['user_id'])
             login(self.request, user)
             response=super().form_valid(form)
             #self.request.session['user_id'] = user_id
