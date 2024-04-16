@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Editor</title>
+    <title>글쓰기</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,10 +39,11 @@
 </head>
 <body>
 <div class="container">
-    <h1>Title Editor</h1>
-    <form method="post">
+    <h1>글쓰기</h1>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+        
         <button type="submit">저장</button>
     </form>
 </div>

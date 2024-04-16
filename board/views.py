@@ -11,17 +11,20 @@ def board(request):
         #print(request.POST)
         title = request.POST['title']
         content = request.POST['content']
-        
+        #imgfile = request.FILES['imgfile']
+        imgfile = request.FILES['imgfile'] if 'imgfile' in request.FILES else None  # 이미지 파일이 없으면 None으로 설정
+            
         board = NoticeBoardPost(
             title=title,
             content=content,
+            imgfile=imgfile,
         )
         #print(title, content)
         #print(board)
         board.save()
         
         
-        return redirect('/board/board_list') # Redirect to a success page or wherever you want
+        return redirect('/board/board_list/') # Redirect to a success page or wherever you want
     else:
         form = NoticeBoardPostForm()
     return render(request, 'board/create_board.html', {'form': form})
@@ -106,5 +109,3 @@ def boardDelete(request, pk):
     print(board)
     board.delete()
     return redirect('/board/board_list')
-
-
