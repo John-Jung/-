@@ -25,7 +25,10 @@ SECRET_KEY = 'mxll($(0b4_&10c061-*s469tjg#u48jh2oi-n6m1fh6_mf5i#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'localhost',
+  '3.34.129.118',
+]
 
 
 # Application definition
