@@ -45,10 +45,10 @@ class LoginView(FormView):
             response=super().form_valid(form)
             #self.request.session['user_id'] = user_id
             response.set_cookie('user_id',user_id)
-        return response
+        return redirect('/board/board_list/')
 
 
 def logout_view(request):
     logout(request)
-    return redirect('/index')
+    return redirect('/index/')
 

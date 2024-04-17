@@ -67,13 +67,13 @@ def comment_create(request, pk):
         comment.commentId  = board_detail
         comment.writer=user_id
         comment.save()
-    return redirect(f'/board/board_detail/{pk}')
+    return redirect(f'/board/board_detail/{pk}/')
 
 def comment_delete(request, board_pk, comment_pk):
     if request.method == "POST":
         comment = Comment.objects.get(pk=comment_pk)
         comment.delete()
-    return redirect(f'/board/board_detail/{board_pk}')
+    return redirect(f'/board/board_detail/{board_pk}/')
 
 def boardList(request):
     if request.method == "GET":
