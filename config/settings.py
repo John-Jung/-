@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['54.215.191.107','ec2-54-215-191-107.us-west-1.compute.amazonaws.com',#public a
                  '54.215.223.153','ec2-54-215-223-153.us-west-1.compute.amazonaws.com',#public c
-                 'rookies08gr-lb-1240470700.us-west-1.elb.amazonaws.com']
+                 'rookies08gr-lb-test-1480469748.us-west-1.elb.amazonaws.com']
 
 
 # Application definition
