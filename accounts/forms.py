@@ -24,12 +24,6 @@ class CsRegisterForm(UserCreationForm):
         model = Users
         fields = ['user_id', 'password1', 'password2', 'email', 'name','nickname']
 
-    def clean_username(self):
-        user_id = self.cleaned_data['user_id']
-        if Users.objects.filter(user_id=user_id).exists():
-            raise forms.ValidationError("이미 사용 중인 아이디입니다.")
-        return user_id
-
     def save(self, commit=True):
         user = super(CsRegisterForm, self).save(commit=False)
         user.save()

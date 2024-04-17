@@ -4,7 +4,7 @@ from .models import *
 class NoticeBoardPostForm(ModelForm):
     class Meta:
         model = NoticeBoardPost
-        fields = ['title', 'content', 'imgfile']
+        fields = ['title', 'content']
 
 class CommentForm(ModelForm):
     class Meta:

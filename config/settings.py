@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import pymysql
+pymysql.install_as_MySQLdb()
 
 from pathlib import Path
-import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,12 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'mxll($(0b4_&10c061-*s469tjg#u48jh2oi-n6m1fh6_mf5i#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-  'localhost',
-  '3.34.129.118',
-]
+ALLOWED_HOSTS = ['rookies08grdb.ch8y8cm0cecj.us-west-1.rds.amazonaws.com',
+                 '54.215.191.107', 'localhost']
 
 
 # Application definition
@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'homemain.apps.HomeMainConfig' ,
     'user_inform.apps.UserInformConfig' ,
     'board.apps.BoardConfig',
-    #'corsheaders',
-    'storages',# django-storages
 ]   
 
 MIDDLEWARE = [
@@ -59,8 +57,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-
-
 
 TEMPLATES = [
     {
@@ -84,42 +80,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-import pymysql
-pymysql.install_as_MySQLdb()
-
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql', # engine: mysql
-    #     'NAME' : 'sampledb', # DB Name
-    #     'USER' : 'admin', # DB User
-    #     'PASSWORD' :'password',# Password
-    #     'HOST': 'database-1.cbmkaqoy0er5.ap-northeast-1.rds.amazonaws.com', # 생성한 데이터베이스 엔드포인트
-    #     'PORT': '3306', # 데이터베이스 포트
-    #     'OPTIONS':{
-    #         'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
-    #     }
-    # }
-    #### RDS 연결
-    'default': {
+ 'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'rookies08grdb',
         'USER': 'admin',
         'PASSWORD': 'rookies08gr!',
         'HOST': 'rookies08grdb.ch8y8cm0cecj.us-west-1.rds.amazonaws.com',
         'PORT': '3306',
-        'OPTIONS': {
-            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-        }
     }
-    ### 로컬 연걸
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'test_db',
-    #     'USER': 'root',
-    #     'PASSWORD': 'asdf1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '3306',
-    # }
    # 'default': {
      #   'ENGINE': 'django.db.backends.sqlite3',
      #   'NAME': BASE_DIR / 'db.sqlite3',
@@ -164,36 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # 정적 파일이 수집될 디렉토리 설정
-
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # 앱 내의 정적 파일 디렉토리 추가
+	BASE_DIR / 'static', 
 ]
 
-#MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # 로그인 성공후 이동하는 URL
-LOGIN_REDIRECT_URL = '/index'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'          # 로그인 URL
-LOGOUT_REDIRECT_URL = '/index'            # 로그아웃 후 URL
+LOGOUT_REDIRECT_URL = '/'            # 로그아웃 후 URL
 AUTH_USER_MODEL = "accounts.Users"       # 커스텀 인증 모델
-
-# settings.py
-
-# AWS S3 설정
-AWS_REGION = 'ap-northeast-2'  # AWS 서버의 지역
-AWS_STORAGE_BUCKET_NAME = "test-bucket-for-testserver"  # AWS S3 버킷 이름
-AWS_ACCESS_KEY_ID = ""  # 액세스 키 ID
-AWS_SECRET_ACCESS_KEY = ""  # 액세스 키 비밀번호
-
-# AWS S3 사용을 위한 URL 구성
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com"
-
-# 정적 파일(static files) 관련 설정
-STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# 미디어 파일 관련 설정
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
