@@ -95,7 +95,10 @@
     {% if board_detail.imgfile %}
     <div class="container border col-10">
         <div style="width:10%; height:150px; float:left; margin-right:10px;">
-            <img src="{{ board_detail.imgfile.url }}" width="700">
+            <!-- <img src="{{ board_detail.imgfile.url }}" width="700"> -->
+            <!--개발환경 <img src="{{board_detail.imgfile.url}}"> -->
+            <!-- 배포환경 -->
+            <img src="http://test-bucket-for-testserver.s3.ap-northeast-2.amazonaws.com{{board_detail.imgfile.url}}">
         </div>
     {% endif %}
 
