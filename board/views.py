@@ -40,13 +40,28 @@ def board(request):
 def read(request, board_id):
     
     board_detail = NoticeBoardPost.objects.get(id = board_id)
+    writer_id = board_detail.writer_id
+
+    # 해당하는 사용자의 닉네임 가져오기
+    user = Users.objects.get(id=writer_id)
+    
     # article = Comment.objects.get(pk = board_id)
     # print(article)
     #댓글 조회, 생성
     comment_form = CommentForm()
+    comments = board_detail.comment_set.all()
+
+    for comment in comments:
+        try:
+            user = Users.objects.get(id=comment.writer_id)
+            comment.writer_nickname = user.nickname
+        except Users.DoesNotExist:
+            comment.writer_nickname = "Unknown"
+
     context = {
         "board_detail" : board_detail,
-        'comments': board_detail.comment_set.all(),
+        "writer_nickname" : user.nickname,
+        "comments": comments,
         'comment_form' : comment_form,
     }
 
@@ -67,13 +82,13 @@ def comment_create(request, pk):
         comment.commentId  = board_detail
         comment.writer=user_id
         comment.save()
-    return redirect(f'/board/board_detail/{pk}')
+    return redirect(f'/board/board_detail/{pk}/')
 
 def comment_delete(request, board_pk, comment_pk):
     if request.method == "POST":
         comment = Comment.objects.get(pk=comment_pk)
         comment.delete()
-    return redirect(f'/board/board_detail/{board_pk}')
+    return redirect(f'/board/board_detail/{board_pk}/')
 
 def boardList(request):
     if request.method == "GET":
@@ -105,7 +120,7 @@ def boardEdit(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect(f'/board/board_detail/{pk}')
+            return redirect(f'/board/board_detail/{pk}/')
 
     else:
         boardForm = NoticeBoardPostForm(instance=board)

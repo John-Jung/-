@@ -8,9 +8,10 @@ class UserAdmin(admin.ModelAdmin):
         'name', 
         'nickname',
         'email',
-        'registered_dttm'
+        'registered_dttm',
+        'password'
         )
-    search_fields = ('user_id', 'name', 'nickname', 'email')
+    search_fields = ('user_id', 'password','name', 'nickname', 'email')
 
 
 admin.site.register(Users, UserAdmin)

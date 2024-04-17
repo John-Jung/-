@@ -30,7 +30,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=256, verbose_name="비밀번호")
     email = models.EmailField(max_length=128, verbose_name="이메일",null=True, unique=True)
     name = models.CharField(max_length=8, verbose_name="이름", null=True)
-    nickname = models.CharField(max_length=128, verbose_name="닉네임", null=True)
+    nickname = models.CharField(max_length=128, verbose_name="닉네임", null=True,unique=True)
     registered_dttm = models.DateField(auto_now_add=True, verbose_name="등록시간")
 
     is_active = models.BooleanField(default=True)
