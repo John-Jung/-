@@ -9,4 +9,5 @@ urlpatterns = [
    path('login/', views.LoginView.as_view(), name='login'),
    path('logout/',views.logout_view,name='logout') ,
    path('signup/', views.CsRegisterView.as_view(), name='signup'),
+   path('check_user_id/', views.check_user_id_view, name='check_user_id'),
 ]

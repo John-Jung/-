@@ -63,7 +63,7 @@
   <div class="container">
     
     <h2>[ 타이틀 : {{ board_detail.title }} ]</h2>
-    <div>[작성자 {{ user.name }}]</div>
+    <div>[작성자 {{ writer_nickname }}]</div>
     <div>[ {{ board_detail.created_at }}]</div>
     <h3>내용 : {{ board_detail.content }} </h3>
 
@@ -71,7 +71,7 @@
     <ul>
       {% for comment in comments %}
       <li>
-        {{ comment.text }}
+        <lit>{{comment.writer_nickname}} : {{ comment.text }}</lit>
         {% if user.id == comment.writer_id or user.id == board_detail.writer_id%}
           <form action="/board/comments/{{ board_detail.id }}/delete/{{ comment.pk }}/" method="POST">
             {% csrf_token %}
@@ -95,10 +95,7 @@
     {% if board_detail.imgfile %}
     <div class="container border col-10">
         <div style="width:10%; height:150px; float:left; margin-right:10px;">
-            <!-- <img src="{{ board_detail.imgfile.url }}" width="700"> -->
-            <!--개발환경 <img src="{{board_detail.imgfile.url}}"> -->
-            <!-- 배포환경 -->
-            <img src="http://test-bucket-for-testserver.s3.ap-northeast-2.amazonaws.com{{board_detail.imgfile.url}}">
+            <img src="{{ board_detail.imgfile.url }}" width="700">
         </div>
     {% endif %}
 

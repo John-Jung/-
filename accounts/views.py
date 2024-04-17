@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from .forms import CsRegisterForm, LoginForm
 from django.views.generic import CreateView, FormView
 from django.urls import reverse_lazy
-
+from django.http import JsonResponse
 
 #회원가입
 class CsRegisterView(CreateView):
@@ -26,12 +26,34 @@ class CsRegisterView(CreateView):
         messages.success(self.request, "회원가입 성공.")
         return super().form_valid(form)
 
+#회원가입 시 중복 체크
+def duplicate_check(request):
+    user_id = request.GET.get('label_user_id')
+    try:
+        user = Users.objects.get(user_id=user_id)
+        duplicate = "fail"
+    except Users.DoesNotExist:
+        duplicate = "pass"
+    
+    return JsonResponse({'duplicate': duplicate})
 
+def check_user_id_view(request):
+    if request.method == 'GET':
+        user_id = request.GET.get('user_id', '')  # GET 요청으로부터 아이디 가져오기
+        print(user_id)
+        if Users.objects.filter(user_id=user_id).exists():  # 아이디가 이미 존재하는지 확인
+            data = {'is_taken': True}  # 이미 사용 중인 경우
+         
+        else:
+            data = {'is_taken': False}  # 사용 가능한 경우
+        print(data)
+        return JsonResponse(data)  # JSON 형식으로 응답
+    
 
 class LoginView(FormView):
     template_name = 'accounts/login.html'
     form_class = LoginForm
-    success_url = '/index'
+    success_url = '/'
 
     def form_valid(self, form):
         user_id = form.cleaned_data.get("user_id")
@@ -45,7 +67,7 @@ class LoginView(FormView):
             response=super().form_valid(form)
             #self.request.session['user_id'] = user_id
             response.set_cookie('user_id',user_id)
-        return redirect('/board/board_list/')
+        return response
 
 
 def logout_view(request):

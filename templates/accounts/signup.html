@@ -1,5 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#check-duplicate-btn').click(function() { // 중복 확인 버튼 클릭 시 이벤트 발생
+        var user_id = $('#id_user_id').val(); // 입력된 아이디 값 가져오기
+        if (user_id) { // 입력된 아이디가 있을 경우에만 확인
+            $.ajax({
+                url: '/accounts/check_user_id/', // 서버에 요청할 URL
+                data: {'user_id': user_id}, // 아이디 데이터 전송
+                dataType: 'json', // 서버에서 전송되는 데이터 타입 지정
+                success: function(data) { // 요청 성공 시 실행되는 함수
+                    if (data.is_taken) { // 아이디가 이미 사용 중인 경우
+                        $('#user_id-feedback').text('이미 사용 중인 아이디입니다.');
+                        $('#user_id-feedback').css('color', 'red'); 
+                        $('#signup-btn').prop('disabled', true); // 회원가입 버튼 비활성화
+                    } else { // 아이디가 사용 가능한 경우
+                        $('#user_id-feedback').text('사용 가능한 아이디입니다.');
+                        $('#user_id-feedback').css('color', 'green');
+                        $('#signup-btn').prop('disabled', false); // 회원가입 버튼 활성화
+                    }
+                }
+            });
+        }
+    });
+});
+</script>
 <div class="container">
     <div style="margin-top: 5rem !important;">
         <div class="col-12">
@@ -19,11 +45,12 @@
                                                     <div class="col-12">
                                                         <form action="" id="signup" method="POST" novalidate>
                                                             {% csrf_token %}
-                            
                                                             <!--아이디-->
                                                             <div class="mb-4 md-form">
-                                                                <label name="label_user_id" for="{{ form.user_id.id_for_label }}"><i
-                                                                        class="fas fa-user"></i>&nbsp;&nbsp;{{ form.user_id.label }}</label>
+                                                                <label name="label_user_id" for="{{ form.user_id.id_for_label }}">
+                                                                    <i
+                                                                        class="fas fa-user"></i>&nbsp;&nbsp;{{ form.user_id.label }}
+                                                                </label>
                                                                 {{ form.user_id }}
                                                                 <script type="text/javascript">
                                                                     if (document.getElementsByName('user_id')[0].value != '') {
@@ -45,6 +72,8 @@
                                                                 <small class="form-text text-muted">
                                                                     로그인 시 사용할 아이디를 입력해주세요.
                                                                 </small>
+                                                                <button type="button" id="check-duplicate-btn">중복 확인</button> <!-- 중복 확인 버튼 -->
+                                                                <span id="user_id-feedback" ></span> <!-- 중복 여부 표시를 위한 영역 -->
                                                             </div>
                                                             <!--비밀번호-->
                                                             <div class="form-row">
@@ -121,9 +150,6 @@
                                                                 </div>
                                                                 {% endfor %}
                                                                 {% endif %}
-                                                                <small class="form-text text-muted">
-                                                                    회원가입 후 입력하신 메일주소로 본인인증 메일이 전송됩니다.
-                                                                </small>
                                                             </div>
                                                             <!--이름-->
                                                             <div class="mb-4 md-form">
@@ -146,9 +172,6 @@
                                                                 </div>
                                                                 {% endfor %}
                                                                 {% endif %}
-                                                                <small class="form-text text-muted">
-                                                                    아이디, 비밀번호 찾기에 사용됩니다.
-                                                                </small>
                                                             </div>
                                                             <!--닉네임-->
                                                             <div class="mb-4 md-form">
@@ -177,7 +200,7 @@
                         
                             
                                                             <br>
-                                                            <button type="submit" style="opacity: 90%; font-size: 16px; margin-top: -5px;"
+                                                            <button id="signup-btn" disabled type="submit" style="opacity: 90%; font-size: 16px; margin-top: -5px;"
                                                                 class="btn btn-red btn-md btn-block">회원가입</button>
                             
                                                         </form>
@@ -194,6 +217,7 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 
