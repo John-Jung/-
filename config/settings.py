@@ -25,10 +25,9 @@ SECRET_KEY = 'mxll($(0b4_&10c061-*s469tjg#u48jh2oi-n6m1fh6_mf5i#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-  'localhost',
-  '3.34.129.118',
-]
+ALLOWED_HOSTS = ['54.215.191.107','ec2-54-215-191-107.us-west-1.compute.amazonaws.com',#public a
+                 '54.215.223.153','ec2-54-215-223-153.us-west-1.compute.amazonaws.com',#public c
+                 'rookies08gr-lb-1240470700.us-west-1.elb.amazonaws.com']
 
 
 # Application definition
