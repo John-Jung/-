@@ -168,3 +168,5 @@ LOGIN_REDIRECT_URL = '/index'
 LOGIN_URL = '/accounts/login/'          # 로그인 URL
 LOGOUT_REDIRECT_URL = '/index'            # 로그아웃 후 URL
 AUTH_USER_MODEL = "accounts.Users"       # 커스텀 인증 모델
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
