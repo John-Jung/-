@@ -40,16 +40,31 @@ def board(request):
 def read(request, board_id):
     
     board_detail = NoticeBoardPost.objects.get(id = board_id)
+
+    writer_id = board_detail.writer_id
+
+    # 해당하는 사용자의 닉네임 가져오기
+    user = Users.objects.get(id=writer_id)
+    writer_nickname = user.nickname
+
     # article = Comment.objects.get(pk = board_id)
     # print(article)
     #댓글 조회, 생성
     comment_form = CommentForm()
+    comments = board_detail.comment_set.all()
+
+    for comment in comments:
+        try:
+            user = Users.objects.get(id=comment.writer_id)
+            comment.writer_nickname = user.nickname
+        except Users.DoesNotExist:
+            comment.writer_nickname = "Unknown"
     context = {
         "board_detail" : board_detail,
-        'comments': board_detail.comment_set.all(),
+        "writer_nickname": writer_nickname,
+        "comments": comments,
         'comment_form' : comment_form,
     }
-
     
     #print(request.POST['text'])
     #return HttpResponse(f"{board_detail.id} = id <br> {board_detail.title} = title <br> {board_detail.content} = content")
