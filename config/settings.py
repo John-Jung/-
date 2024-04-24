@@ -100,26 +100,23 @@ DATABASES = {
     #     }
     # }
     #### RDS 연결
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rookies08grdb',
-        'USER': 'admin',
-        'PASSWORD': 'rookies08gr!',
-        'HOST': 'rookies08grdb.ch8y8cm0cecj.us-west-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
-        }
-    }
-    ### 로컬 연걸
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'test_db',
-    #     'USER': 'root',
-    #     'PASSWORD': 'asdf1234',
-    #     'HOST': 'localhost',
+    #     'NAME': 'rookies08db',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'rookies08gr!',
+    #     'HOST': 'rookies08db.ch8y8cm0cecj.us-west-1.rds.amazonaws.com',
     #     'PORT': '3306',
     # }
+    ### 로컬 연걸
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test_db',
+        'USER': 'root',
+        'PASSWORD': 'asdf1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
    # 'default': {
      #   'ENGINE': 'django.db.backends.sqlite3',
      #   'NAME': BASE_DIR / 'db.sqlite3',
@@ -170,7 +167,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',  # 앱 내의 정적 파일 디렉토리 추가
 ]
 
-#MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 로그인 성공후 이동하는 URL
@@ -190,7 +187,7 @@ AWS_SECRET_ACCESS_KEY = ""  # 액세스 키 비밀번호
 # AWS S3 사용을 위한 URL 구성
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com"
 
-# 정적 파일(static files) 관련 설정
+#정적 파일(static files) 관련 설정
 STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 

@@ -21,9 +21,10 @@ class CsRegisterView(CreateView):
 
     #**따라서 클래스형 뷰에서는 reverse_lazy를 사용하고 
     #def형 뷰 / model에서는 def를 따로 지정해주니까 reverse를 사용한다    
-
     def form_valid(self, form):
-        messages.success(self.request, "회원가입 성공.")
+        storage = messages.get_messages(self.request)
+        storage.used = True  # 이전 메시지를 모두 소비하여 삭제합니다.
+        messages.success(self.request, "회원가입 성공하였습니다. 로그인 해주세요")
         return super().form_valid(form)
 
 #회원가입 시 중복 체크
@@ -73,4 +74,3 @@ class LoginView(FormView):
 def logout_view(request):
     logout(request)
     return redirect('/index/')
-

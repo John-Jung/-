@@ -3,6 +3,7 @@ from .forms import NoticeBoardPostForm, CommentForm
 from .models import *
 from django.http import HttpResponse
 from accounts.models import Users
+from django.core.paginator import Paginator
     
 def board(request):
     if request.method == 'POST':
@@ -40,16 +41,31 @@ def board(request):
 def read(request, board_id):
     
     board_detail = NoticeBoardPost.objects.get(id = board_id)
+
+    writer_id = board_detail.writer_id
+
+    # 해당하는 사용자의 닉네임 가져오기
+    user = Users.objects.get(id=writer_id)
+    writer_nickname = user.nickname
+
     # article = Comment.objects.get(pk = board_id)
     # print(article)
     #댓글 조회, 생성
     comment_form = CommentForm()
+    comments = board_detail.comment_set.all()
+
+    for comment in comments:
+        try:
+            user = Users.objects.get(id=comment.writer_id)
+            comment.writer_nickname = user.nickname
+        except Users.DoesNotExist:
+            comment.writer_nickname = "Unknown"
     context = {
         "board_detail" : board_detail,
-        'comments': board_detail.comment_set.all(),
+        "writer_nickname": writer_nickname,
+        "comments": comments,
         'comment_form' : comment_form,
     }
-
     
     #print(request.POST['text'])
     #return HttpResponse(f"{board_detail.id} = id <br> {board_detail.title} = title <br> {board_detail.content} = content")
@@ -80,6 +96,11 @@ def boardList(request):
         if not request.user.is_authenticated:   
             return redirect('accounts:login')
         lists = NoticeBoardPost.objects.all()
+        # Paginator 객체 생성 (각 페이지에 10개의 게시글)
+        paginator = Paginator(lists, 10)
+         # 요청된 페이지 가져오기
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         #list1 = NoticeBoardPost.objects.get(id = 1)
         #print(list1)
         #lists = NoticeBoardPost.objects.values('content').all()
@@ -87,6 +108,7 @@ def boardList(request):
         context = {
            # "list1" : list1,
             "lists" : lists,
+            "page_obj" : page_obj
         }
         return render(request, 'board/board_list.html', context)
     else:
@@ -100,6 +122,7 @@ def boardEdit(request, pk):
         #print(1)
         board.title = request.POST['title']
         board.content = request.POST['content']
+        #board.imgfile = request.FILES['imgfile'] if 'imgfile' in request.FILES else None  # 이미지 파일이 없으면 None으로 설정
         board.save()
         form = NoticeBoardPostForm(request.POST, instance=board)
 
