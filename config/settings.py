@@ -187,6 +187,7 @@ AWS_SECRET_ACCESS_KEY = ""  # 액세스 키 비밀번호
 # AWS S3 사용을 위한 URL 구성
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com"
 
+
 #정적 파일(static files) 관련 설정
 STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
