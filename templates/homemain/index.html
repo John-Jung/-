@@ -1,26 +1,29 @@
-{% extends 'base.html' %}
-{% block content %}
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Black+And+White+Picture&family=Cute+Font&family=Single+Day&display=swap');
         body {
-            font-family: Arial, sans-serif;
+            
             text-align: center;
-            background-image: url("https://media.istockphoto.com/id/1299730469/ko/%EC%82%AC%EC%A7%84/%EC%A7%80%EB%AC%B8-%EC%83%9D%EC%B2%B4-%EC%9D%B8%EC%8B%9D-%EC%9D%B8%EC%A6%9D-%EB%B2%84%ED%8A%BC-%EB%94%94%EC%A7%80%ED%84%B8-%EB%B3%B4%EC%95%88-%EA%B0%9C%EB%85%90.jpg?s=612x612&w=0&k=20&c=9TiwuAb0aE7p1L3AJ2fnok7CA6TQ0ggr6mOzg-ICw2Y=");
+            background-image: url("");
             background-size: cover;
+            background-color: #fff;
         }
         .container {
             max-width: 600px;
             margin: 0 auto; /* 가운데 정렬 */
             padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 10px;
+            border-radius: 60px;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            right: 0;
         }
         a {
             display: block;
@@ -35,23 +38,79 @@
         a:hover {
             background-color: #0056b3;
         }
+        h1{
+            font-size: 110px;
+            
+
+        }
+        e{
+            color: #0056b3;
+        }
+        e2{
+            color: #a0b1c3;
+        }
+        
+        
     </style>
 </head>
 <body>
+   
+   <br>
+   <br>
+   <br>
+   <br>
+
+   <h1><strong><e>보안</e><e2>돌이</e2></strong></h1>
+   
+   <br>
+   <br>
+   
+   
+
     <div class="container my-3">
         {% if user.is_authenticated %}
-            <a>안녕하세요, 로그인 되었습니다! {{ user.name }}님</a>
+            <a>안녕하세요, <strong>로그인 되었습니다!</strong> {{ user.name }}님</a>
             <a href="/board/board_list/" onclick="showAlert()">게시판 들어가기</a>
         {% else %}
-            <a>안녕하세요, 환영합니다! 로그인 상태가 아닙니다.</a>
+            <a>안녕하세요, 환영합니다! <strong>로그인 상태가 아닙니다.</strong></a>
             <a href="/board/board_list/" onclick="return confirm('로그인이 필요한 활동입니다. 로그인 하시겠습니까?');">게시판 들어가기</a>
         {% endif %}
+
     </div>
-    <script>
-        function showAlert() {
-            alert("게시판에 들어갑니다!");
-        }
-    </script>
-</body>
-</html>
-{% endblock %}
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+      <!-- SIGN IN CONTENT -->
+      <div class="col align-items-center flex-col">
+        <div class="text sign-in">
+            {% if user.is_authenticated %}
+          <h2>
+            Welcome!
+          </h2>
+          {% else %}
+          <h2>
+            Security arXiv
+          </h2>
+          {% endif%}
+  
+        </div>
+        <div class="img sign-in">
+    
+        </div>
+      </div>
+      <!-- END SIGN IN CONTENT -->
+     </div>
+    </div>
+  <script>
+    function showAlert() {
+        alert("게시판에 접속합니다!");
+    }
+</script>
+<script>
+    let container = document.getElementById('container')
+
+setTimeout(() => {
+  container.classList.add('sign-in')
+}, 200)
+</script>
+ 

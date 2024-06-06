@@ -1,51 +1,221 @@
-
 {% extends "base.html" %}
 {% block content %}
-<form method="POST" action="." novalidate>
-    {% csrf_token %}
-    <div>
-        <label name="label_user_id" for="{{ form.user_id.id_for_label }}">
-            {{ form.user_id.label }}
-        </label>
-        {{ form.user_id }}
-        <script type="text/javascript">
-            if (document.getElementsByName('user_id')[0].value != '') {
-                document.getElementsByName('label_user_id')[0].setAttribute('class', 'active');
-            }
-        </script>
-        {% if form.user_id.errors %}
-        <script type="text/javascript">
-            document.getElementsByName('user_id')[0].setAttribute('class', 'form-control is-invalid')
-        </script>
-        {% for error in form.user_id.errors %}
-        <div class="invalid-feedback">
-            {{ error }}
+
+<head>
+    <title>로그인</title>
+</head>
+<div style="margin-top: 13rem !important;" class="row justify-content-center">
+    <div class="card" style="width: 600px;">
+        <div class="card-header" style="padding:8px;">
+            <strong style="font-size: 18px;"><i class="fas fa-user-login"></i>&nbsp;&nbsp;로그인</strong>
         </div>
-        {% endfor %}
-        {% endif %}
-    </div>
-    <div>
-        <label name="label_password" for="{{ form.password.id_for_label }}">
-            {{ form.password.label }}
-        </label>
-        {{ form.password }}
-        <script type="text/javascript">
-            if (document.getElementsByName('passwordd')[0].value != '') {
-                document.getElementsByName('label_password')[0].setAttribute('class', 'active');
+
+        <style>
+            .body {
+                background-color: mediumturquoise;
             }
-        </script>
-        {% if form.password.errors %}
-        <script type="text/javascript">
-            document.getElementsByName('password')[0].setAttribute('class', 'form-control is-invalid')
-        </script>
-        {% for error in form.password.errors %}
-        <div class="invalid-feedback">
-            {{ error }}
+
+            .table {
+                margin-bottom: 0;
+            }
+
+            hr {
+                margin-top: 40px;
+                margin-bottom: 40px;
+                border: 0;
+            }
+
+            .card-body {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            @keyframes gradientAnimation {
+                0% {
+                    background-position: 0% 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            .card-header {
+                padding-bottom: 8px;
+                background: linear-gradient(45deg, #007bff, purple, white);
+                background-size: 200% 100%;
+                animation: gradientAnimation 3s ease infinite;
+                border-bottom: 5px solid whitesmoke;
+                padding-top: 14px;
+            }
+
+            .card {
+                border: none;
+                width: 700px;
+                height: auto;
+                padding: 0;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+            }
+
+            .profile_title {
+                font-weight: bold;
+                color: black;
+
+            }
+
+            .profile_content {
+                color: #666;
+            }
+
+            .btn-sm {
+                position: absolute;
+                right: 460px;
+                /* 사이드 바 버튼과의 거리 조절 */
+
+                top: 300px;
+                /* 사이드 바 버튼과의 거리 조절 */
+                /* left: 600px; */
+                width: 120px;
+                /* 버튼 너비 */
+                height: 35px;
+                /* 버튼 높이 */
+                background-color: #111;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                z-index: 1002;
+                /* 새 글 작성 버튼 위에 위치하도록 z-index 값을 높임 */
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            }
+
+
+            .btn-sm:hover {
+                background-color: mediumaquamarine;
+                color: white;
+            }
+
+            .btn-sm1 {
+                position: absolute;
+                right: 10px;
+                /* 사이드 바 버튼과의 거리 조절 */
+
+                top: 300px;
+                /* 사이드 바 버튼과의 거리 조절 */
+                /* left: 780px; */
+                width: 130px;
+                /* 버튼 너비 */
+                height: 35px;
+                /* 버튼 높이 */
+                background-color: #111;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                z-index: 1002;
+                /* 새 글 작성 버튼 위에 위치하도록 z-index 값을 높임 */
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            }
+
+
+            .btn-sm1:hover {
+                background-color: mediumaquamarine;
+                color: white;
+            }
+
+            .container {
+                display: flex;
+                /* Flexbox 사용 */
+                justify-content: center;
+                /* 가로축 중앙 정렬 */
+                align-items: center;
+                /* 세로축 중앙 정렬 */
+            }
+        </style>
+
+        <style>
+            body {
+                background-color: mediumturquoise;
+            }
+        </style>
+
+        <div class="card-body">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {% endif %}
+            <form method="POST" action="." novalidate>
+                {% csrf_token %}
+                <div>
+                    <label name="label_user_id" for="{{ form.user_id.id_for_label }}">
+                        {{ form.user_id.label }}
+                    </label>
+                    {{ form.user_id }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('user_id')[0].value != '') {
+                            document.getElementsByName('label_user_id')[0].setAttribute('class', 'active');
+                        }
+                    </script>
+                    {% if form.user_id.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('user_id')[0].setAttribute('class', 'form-control is-invalid')
+                    </script>
+                    {% for error in form.user_id.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div>
+                    <label name="label_password" for="{{ form.password.id_for_label }}">
+                        {{ form.password.label }}
+                    </label>
+                    {{ form.password }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('passwordd')[0].value != '') {
+                            document.getElementsByName('label_password')[0].setAttribute('class', 'active');
+                        }
+                    </script>
+                    {% if form.password.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('password')[0].setAttribute('class', 'form-control is-invalid')
+                    </script>
+                    {% for error in form.password.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div style="text-align: center; margin-bottom:-15px; margin-top:+15px;">
+                    <button type="submit" style="opacity: 90%; font-size: 16px; " class="btn btn-sm">
+                        <i class="fas fa-sign-in-alt"> 로그인</i>
+                    </button>
+                    <a style="opacity: 90%; font-size: 16px;;" class="btn btn-sm1" href="{% url 'accounts:signup' %}">
+                        <i class="fas fa-user-plus"> 회원가입</i></a>
+                </div>
+
+            </form>
         </div>
-        {% endfor %}
-        {% endif %}
     </div>
-    <button type="submit" style="opacity: 90%; font-size: 16px; margin-top: -5px;" class="btn btn-red btn-lg btn-block">로그인</button>
-</form>
-<a  style="opacity: 90%; font-size: 16px; margin-top: -5px;" class="btn btn-red btn-lg btn-block" href="{% url 'accounts:signup' %}">회원가입</a>
+</div>
+
 {% endblock %}

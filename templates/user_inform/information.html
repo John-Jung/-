@@ -1,8 +1,116 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+    <title>내 정보</title>
+</head>
+<style>
+.body {
+    background-color: mediumturquoise;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+hr {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 0;
+}
+
+.card-body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px; 
+}
+
+.card-header {
+        background-color: whitesmoke;
+        border-bottom: 5px solid whitesmoke;
+        padding-top: 14px;
+    }
+
+.card {
+  width: 500px;
+  height: auto;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+    .profile_title {
+        font-weight: bold;
+        color: black;
+        background-color: grey;
+    }
+
+    .profile_content {
+        color: #666;
+    }
+
+    .btn-profile-update {
+        position: absolute;
+    right: 300px; /* 사이드 바 버튼과의 거리 조절 */
+   
+    top: 400px;   /* 사이드 바 버튼과의 거리 조절 */
+    /* left: 500px; */
+        width: 200px; /* 버튼 너비 */
+        height: 50px; /* 버튼 높이 */
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    z-index: 1002; /* 새 글 작성 버튼 위에 위치하도록 z-index 값을 높임 */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    .btn-profile-update:hover {
+        background-color: mediumaquamarine; /* 마우스 호버 시 배경색을 검정색으로 변경 */
+color: white; /* 마우스 호버 시 텍스트를 흰색으로 변경 */
+    }
+
+    .btn-password-edit {
+        position: absolute;
+    right: 0px; /* 사이드 바 버튼과의 거리 조절 */
+   
+    top: 400px;   /* 사이드 바 버튼과의 거리 조절 */
+    width: 200px; /* 버튼 너비 */
+        height: 50px; /* 버튼 높이 */
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    z-index: 1002; /* 새 글 작성 버튼 위에 위치하도록 z-index 값을 높임 */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+
+    .btn-password-edit:hover {
+        background-color: mediumaquamarine; /* 마우스 호버 시 배경색을 검정색으로 변경 */
+color: white; /* 마우스 호버 시 텍스트를 흰색으로 변경 */
+    }
+    .container {
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로축 중앙 정렬 */
+  align-items: center; /* 세로축 중앙 정렬 */
+}
+</style>
+<style>
+    body {
+    background-color: mediumturquoise;
+}
+</style>
+
 <div class="container">
-    <div style="margin-top: 5rem !important;">
+    <div style="margin-top: 10rem !important;">
         <div class="col-12">
             <div class="row justify-content-center">
                 <div class="card">
@@ -10,7 +118,7 @@
                         <strong style="font-size: 18px;"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;내 정보</strong>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+                        <table class="table" style="color:black; margin-left:10px;">
                             <tr>
                                 <td class="profile_title">아이디</td>
                                 <td class="profile_content">{{ user.user_id }}</td>
@@ -30,38 +138,6 @@
                         </table>
                         <hr>
                         <div id="button-container" style="text-align: center;"></div>
-
-                        <script>
-                            // 버튼 생성 함수
-                            function createButton(iconClass, text, url) {
-                                var button = document.createElement("button");
-                                button.classList.add("btn");
-                                button.style.color = "#d14040f2";
-                                button.style.fontSize = "15px";
-                    
-                                var icon = document.createElement("i");
-                                icon.classList.add("fas", iconClass);
-                                button.appendChild(icon);
-                                button.innerHTML += "&nbsp;" + text;
-                    
-                                button.addEventListener("click", function() {
-                                    window.location.href = url;
-                                });
-                    
-                                return button;
-                            }
-                    
-                            // 버튼 컨테이너
-                            var buttonContainer = document.getElementById("button-container");
-                    
-                            // 내 정보 수정 버튼 생성
-                            var profileUpdateButton = createButton("fa-user-edit", "내 정보 수정", "{% url 'user_inform:profile_update' %}");
-                            buttonContainer.appendChild(profileUpdateButton);
-                    
-                            // 비밀번호 변경 버튼 생성
-                            var passwordEditButton = createButton("fa-user-lock", "비밀번호 변경", "{% url 'user_inform:password_edit' %}");
-                            buttonContainer.appendChild(passwordEditButton);
-                        </script>
                     </div>
                 </div>
             </div>
@@ -69,5 +145,35 @@
     </div>
 </div>
 
+<script>
+    // 버튼 생성 함수
+    function createButton(iconClass, text, url, buttonClass) {
+        var button = document.createElement("button");
+        button.classList.add("btn", buttonClass); // 지정된 버튼 클래스 추가
+        button.style.fontSize = "15px";
+
+        var icon = document.createElement("i");
+        icon.classList.add("fas", iconClass);
+        button.appendChild(icon);
+        button.innerHTML += "&nbsp;" + text;
+
+        button.addEventListener("click", function() {
+            window.location.href = url;
+        });
+
+        return button;
+    }
+    
+     // 버튼 컨테이너
+     var buttonContainer = document.getElementById("button-container");
+
+// 내 정보 수정 버튼 생성
+var profileUpdateButton = createButton("fa-user-edit", "내 정보 수정", "{% url 'user_inform:profile_update' %}", "btn-profile-update");
+buttonContainer.appendChild(profileUpdateButton);
+
+// 비밀번호 변경 버튼 생성
+var passwordEditButton = createButton("fa-user-lock", "비밀번호 변경", "{% url 'user_inform:password_edit' %}", "btn-password-edit");
+buttonContainer.appendChild(passwordEditButton);
+</script>
 
 {% endblock %}

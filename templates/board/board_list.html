@@ -1,38 +1,73 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>목록</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>게시판</title>
   <style>
+   @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Black+And+White+Picture&family=Cute+Font&family=Single+Day&display=swap');
     body {
-      font-family: Arial, sans-serif;
+     
       text-align: center;
-      background-color: #f9f9f9;
-      background-image: url("https://media.istockphoto.com/id/1412282189/photo/lock-network-technology-concept.jpg?s=612x612&w=0&k=20&c=hripuxLs9pS_7Ln6YWQR-Ow2_-BU5RdQ4vOY8s1q1iQ=");
+
+      background-color: #fff;
+      background-image: url("");
+
+      background-color: #fff;
+      background-image: url("");
+
     }
       
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto; /* Center align */
+
       padding: 20px;
-      border: 1px solid #ccc;
+  
       border-radius: 10px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background-color: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
     h1 {
       margin-top: 20px;
       margin-bottom: 20px;
-      color: #333;
+      margin-top: 5rem;
+      font-weight: bold; font-size: 2em; color: white;
+
+      padding: 40px;
+      border: 1px solid #fff;
+      border-radius: 50px;
+      background-color: #fffdfd;
+      
+    }
+    h1 {
+
+      padding: 40px;
+      border: 1px solid #fff;
+      border-radius: 50px;
+      background-color: #fffdfd;
+      
+    }
+    h1 {
+
+      margin-bottom: 70px;
+      
+      font-size: 110px;
+      
+      font-weight: 400;
+      font-style: normal;
+      color: #007bff;
+
     }
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 20px;
     }
+   
     th, td {
       padding: 8px;
       border-bottom: 1px solid #ddd;
@@ -44,40 +79,70 @@
       background-color: #f5f5f5;
     }
     a {
-      color: #007bff;
+      color: rgb(12, 12, 218);
       text-decoration: none;
     }
-    button {
-      padding: 8px 16px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+    .new-post-button {
+    position: fixed;
+    right: 150px; /* 사이드 바 버튼과의 거리 조절 */
+    top: 300px;   /* 사이드 바 버튼과의 거리 조절 */
+    width: 50px; /* 버튼의 너비 설정 */
+    height: 50px; /* 버튼의 높이 설정 */
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 40%;
+    cursor: pointer;
+    z-index: 1002; /* 새 글 작성 버튼 위에 위치하도록 z-index 값을 높임 */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+  
+.new-post-button:hover {
+background-color: white; /* 마우스 호버 시 배경색을 검정색으로 변경 */
+color: black; /* 마우스 호버 시 텍스트를 흰색으로 변경 */
+}
   </style>
 </head>
 <body>
+  <h1 style="color: white;">학술 게시판</h1>
   <div class="container">
-    <h1>목록</h1>
-    <table>
-      <thead>
+    <table class="table table-hover">
+      <thead class="table table-borderless">
         <tr>
           <th>ID</th>
           <th>Title</th>
         </tr>
       </thead>
-      <tbody>
-        {% for item in lists %}
-          <tr>
-            <td>{{ item.id }}</td>
-            <td><a href="/board/board_detail/{{ item.id }}/">{{ item.title }}</a></td>
-          </tr>
+      <tbody class="table-group-divider">
+        {% for item in page_obj %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td><a href="/board/board_detail/{{ item.id }}/">{{ item.title }}</a></td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>
+    <!-- 페이지네이션 링크 -->
+    {% if page_obj.has_previous %}
+    <a href="?page=1">처음</a>
+    <a href="?page={{ page_obj.previous_page_number }}">이전</a>
+    {% endif %}
+
+    <span>{{ page_obj.number }}</span> / <span>{{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">다음</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">마지막</a>
+    {% endif %}
+    
     <form action="/board/create_board/" method="get">
-      <button type="submit">글쓰기</button>
+      <button type="submit" class="new-post-button">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
     </form>
   </div>
 </body>

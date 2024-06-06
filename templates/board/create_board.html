@@ -1,52 +1,199 @@
+{% extends 'base.html'%}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글쓰기</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-image: url("https://media.istockphoto.com/id/1299730469/ko/%EC%82%AC%EC%A7%84/%EC%A7%80%EB%AC%B8-%EC%83%9D%EC%B2%B4-%EC%9D%B8%EC%8B%9D-%EC%9D%B8%EC%A6%9D-%EB%B2%84%ED%8A%BC-%EB%94%94%EC%A7%80%ED%84%B8-%EB%B3%B4%EC%95%88-%EA%B0%9C%EB%85%90.jpg?s=612x612&w=0&k=20&c=9TiwuAb0aE7p1L3AJ2fnok7CA6TQ0ggr6mOzg-ICw2Y=");
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>글 작성</title>
+<style>
+body {
+font-size: 16px;
+
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto; /* 양쪽 마진을 자동으로 설정하여 가운데 정렬 */
+  padding: 50px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+/* 파랑색 */
+margin-bottom: 30px;
+font-weight: bold;
+text-align: center;
+/* 가운데 정렬 */
+}
+
+form {
+margin-top: 30px;
+}
+.form-control {
+border: 1px solid #CED4DA;
+border-radius: 5px;
+padding: 8px;
+width: 100%;
+margin-bottom: 20px;
+}
+
+.form-control-file {
+border: 1px solid #CED4DA;
+border-radius: 5px;
+padding: 8px;
+margin-bottom: 20px;
+}
+
+.form-button-group {
+  position: fixed;
+    right: 150px; /* 사이드 바 버튼과의 거리 조절 */
+    top: 300px;   /* 사이드 바 버튼과의 거리 조절 */
+    width: 50px; /* 버튼의 너비 설정 */
+    height: 50px; /* 버튼의 높이 설정 */
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 40%;
+    cursor: pointer;
+    z-index: 1002; /* 새 글 작성 버튼 위에 위치하도록 z-index 값을 높임 */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+h1 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-top: 5rem;
+      font-weight: bold; font-size: 2em; color: white;
+    }
+
+input[type="text"],
+textarea,
+input[type="file"]  {
+border-radius: 5px;
+padding: 8px;
+width: 100%;
+margin-bottom: 20px;
+}
+
+
+input[type="text"]:hover,
+textarea:hover,
+input[type="file"]:hover {
+border: 1px solid mediumturquoise;
+}
+
+</style>
+=======
+=======
+>>>>>>> b9fde118869f984522fa7a3203fdb66bdfcead7a
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Black+And+White+Picture&family=Cute+Font&family=Single+Day&display=swap');
+    body {
+      
+      text-align: center;
+      background-color: #f9f9f9;
+      background-image: url("");
+      background-size: cover;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto; /* 가운데 정렬 */
+      padding: 20px;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      background-color: #fff;
+      
+    }
+    h1 {
+      color: #007bff; /* 파랑색 */
+      margin-bottom: 70px;
+      font-size: 70px;
+    }
+    form {
+      text-align: left; /* 입력 필드 왼쪽 정렬 */
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box; /* 입력 필드 높이 조절을 위해 */
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="text"], textarea {
+            border: 4px solid #007bff;
+            border-radius: 50px;
+            padding: 8px;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto; /* 가운데 정렬 */
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #007bff; /* 파랑색 */
-            margin-bottom: 20px;
-        }
-        form {
-            margin-top: 20px;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+  </style>
+
 </head>
+
 <body>
-<div class="container">
-    <h1>글쓰기</h1>
+
+  <h1 style="color: white;">글 작성</h1>
+  <div class="container" style="margin-top: 15px">
+
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        
-        <button type="submit">저장</button>
+    {% csrf_token %}
+      <div class="form-group">
+        <label for="id_title">제목</label>
+        <input type="text" class="form-control" id="id_title" name="title" placeholder="제목을 입력하세요">
+        </div>
+      <div class="form-group">
+        <label for="id_content">내용</label>
+        <textarea class="form-control" id="id_content" name="content" rows="5"
+        placeholder="내용을 입력하세요"></textarea>
+        </div>
+      <div class="form-group">
+        <label for="id_imgfile"></label>
+        <input type="file" class="form-control-file" id="id_imgfile" name="imgfile">
+        </div>
+      <div class="form-button-group">
+          <button type="submit" class="btn form-button-group">
+            <i class="fas fa-save"></i> 
+          </button>
+      </div>
     </form>
-</div>
+
+  </div>
+
+  <div class="container">
+    <h1>수정페이지</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ boardForm.as_p }}
+      <button type="submit">수정</button>
+    </form>
+  </div>
+
 </body>
+
 </html>
 {% endblock %}
