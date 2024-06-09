@@ -13,24 +13,27 @@
 1. [프로젝트 소개](#프로젝트-소개)
 2. [개발 기간](#개발-기간)
 3. [팀 멤버](#팀-멤버)
-4. [주요기능 소개](#주요기능-소개)
-   - [자기소개서 가이드](#자기소개서-가이드)
-   - [자기소개서 첨삭](#자기소개서-첨삭)
-   - [글 리스트 조회](#글-리스트-조회)
-   - [상세 페이지 기능](#상세-페이지-기능)
-   - [마이페이지](#마이페이지)
-   - [어드민 유저관리](#어드민-유저관리)
-   - [어드민 유저통계](#어드민-유저통계)
-   - [랜딩페이지](#랜딩페이지)
+4. [주요 기능 소개](#주요-기능-소개)
+   - [메인 페이지](#메인-페이지)
+   - [로그인 페이지](#로그인-페이지)
+   - [메뉴바](#메뉴바)
+   - [게시판 목록](#게시판-목록)
+   - [게시판 생성](#게시판-생성)
+   - [게시판 상세 1](#게시판-상세-1)
+   - [게시판 상세 2](#게시판-상세-2)
+   - [게시판 수정](#게시판-수정)
+   - [내 정보](#내-정보)
+   - [내 정보 수정](#내-정보-수정)
+   - [비밀번호 수정](#비밀번호-수정)
 5. [프로젝트 아키텍처](#프로젝트-아키텍처)
 6. [개발 환경](#개발-환경)
 7. [레포지토리](#레포지토리)
 8. [트러블 슈팅 & 기술적 경험](#트러블-슈팅--기술적-경험)
-   - [김상휘 AI](#김상휘)
-   - [박민준 FE](#박민준)
-   - [신아진 BE](#신아진)
-   - [박연경 BE](#박연경)
-   - [안은비 BE](#안은비)
+   - [정성욱](#정성욱)
+   - [김현진](#김현진)
+   - [서미란](#서미란)
+   - [정연서](#정연서)
+   - [홍준혁](#홍준혁)
 
 
 ## 💻프로젝트 소개
@@ -91,46 +94,35 @@
 
 
 ## 🏛프로젝트 아키텍처
-  ![reditor_architecture2](https://github.com/MinjoonHK/resumeEditorFrontend/assets/108560916/9e4adc18-e1b2-46b6-b1a2-1b0b7735ff50)
+
 
 ## ⚙개발 환경
 
 <ul>
-  <li>Front-end: React.js@18.2.0, TypeScript, Redux Toolkit@9.1.0, Antd</li>
-  <li>Back-end: Spring Boot, Spring Security, Hibernate</li>
-  <li>AI: ChatGPT API, Qdrant, Flask</li>
-  <li>Env: Node.js@v18.17.0, JAVA 17</li>
-  <li>Build: Vite, Gradle</li>
-  <li>IDE: VScode, IntelliJ</li>
+  <li>Front-end: Figma, JavaScript, CSS </li>
+  <li>Back-end: Django 3.1.3 </li>
+  <li>IDE: VScode </li>
   <li>DB: MySQL</li>
   <li>CI/CD: Github Actions</li>
-  <li>Deploy: Vercel, CloudType</li>
-  <li>Collaboration: Github, Slack, Notion, Swagger@2.0.2, Figjam, Kakao Oven </li>
+  <li>Deploy: AWS </li>
+  <li>Collaboration: Github, Notion</li>
 </ul>
 
-
-## 🏠레포지토리
-
-<a href="https://github.com/MinjoonHK/resumeEditorFrontend">프론트엔드 레포지토리</a><br/>
-<a href="https://github.com/JavaBackEnd21st/resumeEditorBackend">백엔드 레포지토리</a><br/>
-<a href="https://github.com/JavaBackEnd21st/resume_gpt_qdrant">AI 레포지토리</a><br/>
 
 ## 🛠트러블 슈팅 & 기술적 경험
 
-### 김상휘
-
-
-### 박민준
+### 정성욱
 <ul>
-  
-  <li><a href="https://github.com/MinjoonHK/resumeEditorFrontend/wiki/FE-%E2%80%90-UX-%EA%B0%9C%EC%84%A0">FE-UX개선</a></li>
-  <li><a href="https://github.com/MinjoonHK/resumeEditorFrontend/wiki/FE-%E2%80%90-%EC%84%B1%EB%8A%A5-%EC%B5%9C%EC%A0%81%ED%99%94%EC%97%90-%EB%8C%80%ED%95%B4">FE-성능 최적화</li>
+  개발환경 구축, DB 연동
 </ul>
 
-### 신아진
+### 김현진
 
 
-### 박연경
+### 서미란
 
 
-### 안은비
+### 정연서
+
+
+### 홍준혁
